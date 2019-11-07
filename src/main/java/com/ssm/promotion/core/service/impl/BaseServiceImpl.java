@@ -1,7 +1,7 @@
 public class BaseServiceImpl<ID extends Serializable, T extends AbstractEntity<ID>> implements BaseService<ID, T> {
 
 	@Autowired
-	private BaseMapper<ID, T> baseMapper;
+	private BaseDao<ID, T> baseMapper;
 
 	@Override
 	@Transactional
