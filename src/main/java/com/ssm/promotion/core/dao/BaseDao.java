@@ -1,12 +1,16 @@
-public interface BaseDao<ID extends Serializable, T extends AbstractEntity>
+public interface BaseDao<ID extends Serializable, T extends AbstractEntity<ID>>
 {
-	boolean save(T u);
-	
-	boolean deleteById(ID id);
-	
-	boolean update(T u);
-	
-	T getById(ID id);
-	
-	List<T> getAll();
+	int deleteByPrimaryKey(ID id);
+
+	int insert(T record);
+
+	int insertSelective(T record);
+
+	T selectByPrimaryKey(ID id);
+
+	int updateByPrimaryKeySelective(T record);
+
+	int updateByPrimaryKey(T record);
+
+	List<T> selectList(T record);
 }
