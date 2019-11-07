@@ -1,40 +1,58 @@
-public abstract class AbstractEntity implements Serializable
-{
-	private static final long serialVersionUID = 66532814011080848L;
-	
-	private Long id;
-	//创建时间
-	private Date createDate;
-	//修改时间
-	private Date modifyDate;
+public abstract class AbstractEntity<ID extends Serializable> implements Serializable {
 
-	public Long getId()
-	{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected ID id;
+
+	protected Date createTime;
+
+	protected Date updateTime;
+
+	protected String createBy;
+
+	protected String updateBy;
+
+	public ID getId() {
 		return id;
 	}
 
-	public void setId(Long id)
-	{
+	public void setId(ID id) {
 		this.id = id;
 	}
 
-	public Date getCreateDate()
-	{
-		return createDate;
+	public Date getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreateDate(Date createDate)
-	{
-		this.createDate = createDate;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
-	public Date getModifyDate()
-	{
-		return modifyDate;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setModifyDate(Date modifyDate)
-	{
-		this.modifyDate = modifyDate;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
+
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public String getUpdateBy() {
+		return updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
 }
