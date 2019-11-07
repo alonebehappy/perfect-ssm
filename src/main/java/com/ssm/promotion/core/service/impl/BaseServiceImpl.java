@@ -1,49 +1,54 @@
-@Transactional
-public abstract class BaseServiceImpl<ID extends Serializable, T extends AbstractEntity, I extends BaseDao<ID, T, I>>
-	implements BaseService<ID, T, I>
-{
-	/** 基础DAO */
-	private BaseDao<ID, T, I> baseDao;
-	
+public class BaseServiceImpl<ID extends Serializable, T extends AbstractEntity<ID>> implements BaseService<ID, T> {
+
+	@Autowired
+	private BaseMapper<ID, T> baseMapper;
+
 	@Override
-	public boolean save(T u)
-	{
-		if (u != null && u.getCreateDate() == null)
-		{
-			u.setCreateDate(new Date());
-		}
-		if (u != null && u.getModifyDate() == null)
-		{
-			u.setModifyDate(new Date());
-		}
-		return baseDao.save(u);
+	@Transactional
+	public int deleteByPrimaryKey(ID id) {
+		return baseMapper.deleteByPrimaryKey(id);
 	}
+
 	@Override
-	public boolean deleteById(ID id)
-	{
-		return baseDao.deleteById(id);
+	@Transactional
+	public int insert(T record) {
+		return baseMapper.insert(record);
 	}
+
 	@Override
-	public boolean update(T u)
-	{
-		if (u != null && u.getModifyDate() != null)
-		{
-			u.setModifyDate(new Date());
-		}
-		return baseDao.update(u);
+	@Transactional
+	public int insertSelective(T record) {
+		return baseMapper.insertSelective(record);
 	}
+
 	@Override
-	public T getById(ID id)
-	{
-		return baseDao.getById(id);
+	public T selectByPrimaryKey(ID id) {
+		return baseMapper.selectByPrimaryKey(id);
 	}
+
 	@Override
-	public List<T> getAll()
-	{
-		return baseDao.getAll();
+	@Transactional
+	public int updateByPrimaryKeySelective(T record) {
+		return baseMapper.updateByPrimaryKeySelective(record);
 	}
-	public void setBaseDao(BaseDao<ID, T, I> baseDao)
-	{
-		this.baseDao = baseDao;
+
+	@Override
+	@Transactional
+	public int updateByPrimaryKey(T record) {
+		return baseMapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public List<T> selectList(T record) {
+		return baseMapper.selectList(record);
+	}
+
+	@Override
+	public PageInfo<T> getPageData(T record, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<T> list = baseMapper.selectList(record);
+		PageInfo<T> pageInfo = new PageInfo<>(list);
+		return pageInfo;
+	}
+
 }
