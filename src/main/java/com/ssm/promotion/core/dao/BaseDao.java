@@ -1,4 +1,4 @@
-public interface BaseDao<ID extends Serializable, T extends AbstractEntity, I extends BaseDao<?, ?, ?>>
+public interface BaseDao<ID extends Serializable, T extends AbstractEntity>
 {
 	boolean save(T u);
 	
